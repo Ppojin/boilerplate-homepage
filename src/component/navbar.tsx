@@ -116,7 +116,7 @@ export default function Navbar() {
               </Button>
             ))}
           </Box>
-          <UserIcon/>
+          <UserIcon userId={null}/>
         </Toolbar>
       </Container>
     </AppBar>

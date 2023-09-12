@@ -5,12 +5,9 @@ import IconButton from '@mui/material/IconButton';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import { Avatar, Box, Button, Tooltip, Typography } from '@mui/material';
+import User from "@/model/User";
 
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
-
-export default function UserIcon() {
-  const authenticated = false;
-
+export default function UserIcon({userId}: User) {
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -20,16 +17,17 @@ export default function UserIcon() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
   const url = new URL(
-    "/realms/ppojin/protocol/openid-connect/auth", 
-    "http://app.ppojin.localhost:30080"
+      "/realms/ppojin/protocol/openid-connect/auth",
+      "http://app.ppojin.localhost:30080"
   )
   url.searchParams.set("client_id", "test-api");
-  url.searchParams.set("redirect_uri", "http://app.ppojin.localhost:30080/token");
+  url.searchParams.set("redirect_uri", "http://app.ppojin.localhost:30080/test/get");
   url.searchParams.set("response_type", "code");
-  
+
   return (
-    !authenticated
+    userId === null
       ? <a
         href={url.toString()}
         style={{"color": "white", }}
@@ -58,11 +56,12 @@ export default function UserIcon() {
           open={Boolean(anchorElUser)}
           onClose={handleCloseUserMenu}
         >
-          {settings.map((setting) => (
-            <MenuItem key={setting} onClick={handleCloseUserMenu}>
-              <Typography textAlign="center">{setting}</Typography>
-            </MenuItem>
-          ))}
+          <MenuItem key="Profile" onClick={handleCloseUserMenu}>
+            <Typography textAlign="center">Profile</Typography>
+          </MenuItem>
+          <MenuItem key="Logout" onClick={handleCloseUserMenu}>
+            <Typography textAlign="center">Logout</Typography>
+          </MenuItem>
         </Menu>
       </Box>
   )
