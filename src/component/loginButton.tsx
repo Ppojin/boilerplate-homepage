@@ -1,20 +1,38 @@
-import {Button} from "@mui/material";
+'use strict'
+
+import { Box, Button, Link } from "@mui/material";
 import * as React from "react";
 
-export default function LoginButton() {
-    const url = new URL(
-        "/realms/ppojin/protocol/openid-connect/auth",
-        // "http://app.ppojin.localhost:30080"
-        "http://localhost:8081"
-    )
-    url.searchParams.set("client_id", "test-api");
-    // url.searchParams.set("redirect_uri", "http://app.ppojin.localhost:30080/httpbin/get");
-    url.searchParams.set("redirect_uri", "http://localhost:8081/httpbin/get");
-    url.searchParams.set("response_type", "code");
+interface LoginButton {
+  auth: boolean
+}
 
-    return (
-        <a href={url.toString()}>
-            <Button>Login</Button>
-        </a>
-    )
+export default function LoginButton({ auth }: LoginButton) {
+  const loginUrl = new URL(
+    "/realms/ppojin/protocol/openid-connect/auth",
+    "http://localhost:8081"
+  )
+  loginUrl.searchParams.set("client_id", "test-api");
+  loginUrl.searchParams.set("redirect_uri", "http://localhost:8081/token");
+  loginUrl.searchParams.set("response_type", "code");
+
+  const logoutUrl = new URL(
+    "realms/ppojin/protocol/openid-connect/logout",
+    "http://localhost:8081/"
+  )
+  logoutUrl.searchParams.set("client_id", "test-api");
+  logoutUrl.searchParams.set("post_logout_redirect_uri", "http://localhost:8081/");
+
+
+  return (
+    <Box>
+      <Button
+        variant="contained"
+        component={Link}
+        href={(auth ? logoutUrl : loginUrl).toString()}
+      >
+        {auth ? "Logout" : "Login"}
+      </Button>
+    </Box>
+  )
 }
