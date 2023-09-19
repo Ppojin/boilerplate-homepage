@@ -21,7 +21,7 @@ export default function LoginButton({ auth }: LoginButton) {
     "http://localhost:8081/"
   )
   logoutUrl.searchParams.set("client_id", "test-api");
-  logoutUrl.searchParams.set("post_logout_redirect_uri", "http://localhost:8081/");
+  logoutUrl.searchParams.set("post_logout_redirect_uri", "http://localhost:8081/logout");
 
 
   return (
