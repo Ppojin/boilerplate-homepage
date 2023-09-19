@@ -1,3 +1,7 @@
+[https://medium.com/@sadnub/simple-and-secure-api-authentication-for-spas-e46bcea592ad]
+[https://velog.io/@devmin/JWT-token-expired-date-with-timedelta]
+---
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
